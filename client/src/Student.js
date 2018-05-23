@@ -6,6 +6,9 @@ const Student = (props) => (
 
     <div>
         <h2>{props.name}:</h2>
+        <p>Assignment mark: {props.aMark}</p>
+        <p>Midterm exam mark: {props.mMark}</p>
+        <p>Final exam mark: {props.fMark}</p>
     </div>
 
     // <div className="singleStudent">

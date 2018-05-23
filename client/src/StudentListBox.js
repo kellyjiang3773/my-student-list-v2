@@ -86,7 +86,7 @@ class StudentListBox extends Component {
             this.submitNewStudent();
         // }
     }
-    ///////////////////////////////comp with original
+
     submitNewStudent = () => {
         const { name, aMark, mMark, fMark } = this.state;
         this.setState({ 

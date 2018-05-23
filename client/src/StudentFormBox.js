@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import 'whatwg-fetch';
-// import StudentList from './StudentList';
 import StudentForm from './StudentForm';
 
 class StudentFormBox extends Component {

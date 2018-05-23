@@ -31,16 +31,16 @@ class student_detail extends Component {
 
     componentDidMount() {
         const { match: { params } } = this.props;
-
-        fetch(`api/students/${params.studentId}`)
-            .then(res => res.json()).then((res) => {
+        fetch(`/api/students/${params.studentId}`)
+            .then(res => res.json()).then(res => {
                 // if (!res.success) this.setState({ error: res.error });
                 this.setState({
-                    name: res.name,
-                    aMark: res.aMark,
-                    mMark: res.mMark,
-                    fMark: res.fMark
+                    name: res.student.name,
+                    aMark: res.student.aMark,
+                    mMark: res.student.mMark,
+                    fMark: res.student.fMark
                 });
+                // console.log(res.student.name);
             });
 
         // fetch(`/api/students/${params.studentId}`, {

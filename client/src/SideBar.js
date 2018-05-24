@@ -32,7 +32,6 @@ const add_student = () => {
 
 class update_student extends Component {
     render() {
-        // const { match: { params } } = this.props;
         const updateId = this.props.location.state.updateId;
         return (
             <StudentFormBox studentId={updateId} />

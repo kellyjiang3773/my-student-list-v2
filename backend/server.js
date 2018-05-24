@@ -54,7 +54,7 @@ router.post('/students', (req, res) => {
         if (err) {
             return res.json({ success: false, error: err });
         } else {
-            return res.json({ success: true });
+            return res.json({ success: true, tempId: student._id });
         }
     });
 });

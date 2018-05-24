@@ -7,12 +7,12 @@ class StudentFormBox extends Component {
         super();
         this.state = {
             redirect: false,
-            // data: [],
             error: null,
             name: '',
             aMark: '',
             mMark: '',
             fMark: '',
+            tempId: ''
         };
     }
 
@@ -26,7 +26,6 @@ class StudentFormBox extends Component {
         e.preventDefault();
         const { name, updateId } = this.state;
         if (!name) return;
-        // this.state.redirect = true;
         if (updateId) {
             this.submitUpdatedStudent();
         } else {
@@ -36,41 +35,58 @@ class StudentFormBox extends Component {
 
     submitNewStudent = () => {
         const { name, aMark, mMark, fMark } = this.state;
-        // this.setState({ 
-        //     data: [...this.state.data, {name}],
-        // });
         fetch('/api/students', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
-            else this.setState({ name: '', aMark: '', mMark: '', fMark: '', error: null, redirect: true });
+            else {
+                this.setState({
+                    name: '',
+                    aMark: '',
+                    mMark: '',
+                    fMark: '',
+                    error: null,
+                    redirect: true,
+                    tempId: res.tempId
+                });
+            }
         });
     }
 
     submitUpdatedStudent = () => {
         const { name, aMark, mMark, fMark, updateId } = this.state;
-        // const studentId = this.props.studentId;
         fetch(`/api/students/${updateId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
-            else this.setState({ name: '', aMark: '', mMark: '', fMark: '', updateId: null, redirect: true });
+            else {
+                const tempId = updateId;
+                this.setState({
+                    name: '',
+                    aMark: '',
+                    mMark: '',
+                    fMark: '',
+                    updateId: null,
+                    redirect: true,
+                    tempId: tempId
+                });
+            }
         });
     }
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/student/' />
+            return <Redirect to={'/student/'+this.state.tempId} />
         }
     }
 
     isEmpty = (obj) => {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
                 return false;
         }
         return true;
@@ -78,13 +94,11 @@ class StudentFormBox extends Component {
 
     componentDidMount() {
         if (!this.isEmpty(this.props)) {
-            // console.log(this.isEmpty(this.props));
             // GET student's info
             fetch(`/api/students/${this.props.studentId}`, { method: 'GET' })
                 .then(res => res.json()).then((res) => {
-                    // console.log(this.props);
                     if (!res.success) this.setState({ error: res.error });
-                    else this.setState({ 
+                    else this.setState({
                         name: res.student.name,
                         aMark: res.student.aMark,
                         mMark: res.student.mMark,
@@ -100,7 +114,6 @@ class StudentFormBox extends Component {
             <div>
                 <div>
                     {this.renderRedirect()}
-                    {/* {this.loadInfo()} */}
                     <StudentForm
                         name={this.state.name}
                         aMark={this.state.aMark}

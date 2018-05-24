@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 const StudentList = (props) => {
     const studentNodes = props.data.map(student => (
         <li>
-            {/* <Student
-                key={student._id}
-                id={student._id}
-                // handleDeleteStudent={props.handleDeleteStudent}
-                // handleUpdateStudent={props.handleUpdateStudent}
-            >
-                {student.name}
-            </Student> */}
             <Link to={student.url}>{student.name}</Link>
-            {/* <a href={student.url}>{student.name}</a> */}
         </li>
     ));
+    if (studentNodes.length === 0) {
+        return (
+            <ul>
+                <li>There are no students</li>
+            </ul>
+        );
+    }
     return (
         <ul>
             {studentNodes}
@@ -28,14 +26,8 @@ StudentList.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape(
         {
             name: PropTypes.string,
-            // id: PropTypes.string,
-            // aMark: PropTypes.string,
-            // mMark: PropTypes.string,
-            // fMark: PropTypes.string
         }
     )),
-    // handleDeleteStudent: PropTypes.func,
-    // handleUpdateStudent: PropTypes.func,
 };
 
 StudentList.defaultProps = {

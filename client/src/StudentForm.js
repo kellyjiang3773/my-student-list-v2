@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 const StudentForm = props => (
@@ -38,6 +39,7 @@ const StudentForm = props => (
             />
             <br></br>
             <button type="submit">Submit</button>
+            {/* <Link to="/student" onClick={props.handleSubmit}>Submit</Link> */}
         </form>
     </div>
 );

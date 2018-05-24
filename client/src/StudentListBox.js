@@ -76,31 +76,31 @@ class StudentListBox extends Component {
     //         });
     // }
 
-    submitStudent = (e) => {
-        e.preventDefault();
-        const { name, updateId } = this.state;
-        if (!name) return;
-        // if (updateId) {
-        //     this.submitUpdatedStudent();
-        // } else {
-            this.submitNewStudent();
-        // }
-    }
+    // submitStudent = (e) => {
+    //     e.preventDefault();
+    //     const { name, updateId } = this.state;
+    //     if (!name) return;
+    //     // if (updateId) {
+    //     //     this.submitUpdatedStudent();
+    //     // } else {
+    //         this.submitNewStudent();
+    //     // }
+    // }
 
-    submitNewStudent = () => {
-        const { name, aMark, mMark, fMark } = this.state;
-        this.setState({ 
-            data: [...this.state.data, {name}],
-        });
-        fetch('/api/students', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, aMark, mMark, fMark }),
-        }).then(res => res.json()).then((res) => {
-            if (!res.success) this.setState({ error: res.error.message || res.error });
-            else this.setState({ name: '', aMark: '',mMark: '',fMark: '', error: null });
-        });
-    }
+    // submitNewStudent = () => {
+    //     const { name, aMark, mMark, fMark } = this.state;
+    //     this.setState({ 
+    //         data: [...this.state.data, {name}],
+    //     });
+    //     fetch('/api/students', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ name, aMark, mMark, fMark }),
+    //     }).then(res => res.json()).then((res) => {
+    //         if (!res.success) this.setState({ error: res.error.message || res.error });
+    //         else this.setState({ name: '', aMark: '',mMark: '',fMark: '', error: null });
+    //     });
+    // }
 
     // submitUpdatedStudent = () => {
     //     const { name, aMark, mMark, fMark, updateId } = this.state;

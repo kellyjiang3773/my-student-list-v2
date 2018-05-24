@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 import StudentForm from './StudentForm';
 
 class StudentFormBox extends Component {
     constructor() {
         super();
         this.state = {
+            redirect: false,
             data: [],
             error: null,
             name: '',
@@ -20,35 +22,23 @@ class StudentFormBox extends Component {
         this.setState(newState);
     }
 
-    onUpdateStudent = (id) => {
-        const oldStudent = this.state.data.find(c => c._id === id);
-        if (!oldStudent) return;
-        this.setState({
-            name: oldStudent.name,
-            aMark: oldStudent.aMark,
-            mMark: oldStudent.mMark,
-            fMark: oldStudent.fMark,
-            updateId: id
-        });
-    }
-
-    onDeleteStudent = (id) => {
-        const i = this.state.data.findIndex(c => c._id === id);
-        const data = [
-            ...this.state.data.slice(0, i),
-            ...this.state.data.slice(i + 1),
-        ];
-        this.setState({ data });
-        fetch(`api/students/${id}`, { method: 'DELETE' })
-            .then(res => res.json()).then((res) => {
-                if (!res.success) this.setState({ error: res.error });
-            });
-    }
+    // onUpdateStudent = (id) => {
+    //     const oldStudent = this.state.data.find(c => c._id === id);
+    //     if (!oldStudent) return;
+    //     this.setState({
+    //         name: oldStudent.name,
+    //         aMark: oldStudent.aMark,
+    //         mMark: oldStudent.mMark,
+    //         fMark: oldStudent.fMark,
+    //         updateId: id
+    //     });
+    // }
 
     submitStudent = (e) => {
         e.preventDefault();
         const { name, updateId } = this.state;
         if (!name) return;
+        // this.state.redirect = true;
         if (updateId) {
             this.submitUpdatedStudent();
         } else {
@@ -67,7 +57,7 @@ class StudentFormBox extends Component {
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
-            else this.setState({ name: '', aMark: '',mMark: '',fMark: '', error: null });
+            else this.setState({ name: '', aMark: '',mMark: '',fMark: '', error: null, redirect: true });
         });
     }
 
@@ -79,14 +69,21 @@ class StudentFormBox extends Component {
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
-            else this.setState({ name: '', aMark: '',mMark: '',fMark: '', updateId: null });
+            else this.setState({ name: '', aMark: '',mMark: '',fMark: '', updateId: null, redirect: true });
         });
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/student/' />
+        }
     }
 
     render() {
         return (
             <div>
                 <div>
+                    {this.renderRedirect()}
                     <StudentForm
                         name={this.state.name}
                         aMark={this.state.aMark}

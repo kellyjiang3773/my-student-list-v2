@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import StudentListBox from './StudentListBox';
 import StudentFormBox from './StudentFormBox';
-import Student from './Student';
+import StudentBox from './StudentBox';
 
 const home = () => {
     return (
@@ -18,48 +18,10 @@ const student_list = () => {
 }
 
 class student_detail extends Component {
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            aMark: '',
-            mMark: '',
-            fMark: ''
-        }
-        // buttons and handlers
-    }
-
-    componentDidMount() {
-        const { match: { params } } = this.props;
-        fetch(`/api/students/${params.studentId}`)
-            .then(res => res.json()).then(res => {
-                // if (!res.success) this.setState({ error: res.error });
-                this.setState({
-                    name: res.student.name,
-                    aMark: res.student.aMark,
-                    mMark: res.student.mMark,
-                    fMark: res.student.fMark
-                });
-                // console.log(res.student.name);
-            });
-
-        // fetch(`/api/students/${params.studentId}`, {
-        //     method: 'GET'
-        // }).then(({ data: user }) => {
-        //     this.setState({ user });
-        // });
-    }
-
     render() {
-        // const { match: { params } } = this.props;
+        const { match: { params } } = this.props;
         return (
-            // <h2>{params.studentId}:</h2>
-            <Student
-                name={this.state.name}
-                aMark={this.state.aMark}
-                mMark={this.state.mMark}
-                fMark={this.state.fMark}
-            />
+            <StudentBox studentId={params.studentId} />
         )
     }
 }

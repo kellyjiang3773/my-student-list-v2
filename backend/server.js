@@ -90,16 +90,16 @@ router.get('/students/:studentId', (req, res) => {
 //     });
 // });
 
-// router.delete('/students/:studentId', (req, res) => {
-//     const {studentId} = req.params;
-//     if (!studentId) {
-//         return res.json({success: true, error: "No student id provided"});
-//     }
-//     Student.remove({_id: studentId}, (error, student) => {
-//         if (error) return res.json({success: false, error});
-//         return res.json({success: true});
-//     });
-// });
+router.delete('/students/:studentId', (req, res) => {
+    const {studentId} = req.params;
+    if (!studentId) {
+        return res.json({success: true, error: "No student id provided"});
+    }
+    Student.remove({_id: studentId}, (error, student) => {
+        if (error) return res.json({success: false, error});
+        return res.json({success: true});
+    });
+});
 
 // use router when we call /api
 app.use('/api', router);

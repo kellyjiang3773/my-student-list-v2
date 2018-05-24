@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 const StudentForm = props => (
@@ -53,11 +52,11 @@ StudentForm.propTypes = {
     fMark: PropTypes.string
 };
 
-StudentForm.defaultProps = {
-    name: '',
-    aMark: '',
-    mMark: '',
-    fMark: ''
-};
+// StudentForm.defaultProps = {
+//     name: '',
+//     aMark: '',
+//     mMark: '',
+//     fMark: ''
+// };
 
 export default StudentForm;

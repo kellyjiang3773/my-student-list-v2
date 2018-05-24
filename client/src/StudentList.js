@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Student from './Student';
 
 const StudentList = (props) => {
     const studentNodes = props.data.map(student => (

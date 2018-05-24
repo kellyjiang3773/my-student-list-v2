@@ -71,24 +71,24 @@ router.get('/students/:studentId', (req, res) => {
     });
 });
 
-// router.put('/students/:studentId', (req, res) => {
-//     const {studentId} = req.params;
-//     if (!studentId) {
-//         return res.json({success: false, error: "No student id provided"});
-//     }
-//     Student.findById(studentId, (error, student) => {
-//         if (error) return res.json({success: false, error});
-//         const {name, aMark, mMark, fMark} = req.body;
-//         if (name) student.name = name;
-//         if (aMark) student.aMark = aMark;
-//         if (mMark) student.mMark = mMark;
-//         if (fMark) student.fMark = fMark;
-//         student.save(error => {
-//             if (error) return res.json({success: false, error});
-//             return res.json({success: true});
-//         });
-//     });
-// });
+router.put('/students/:studentId', (req, res) => {
+    const {studentId} = req.params;
+    if (!studentId) {
+        return res.json({success: false, error: "No student id provided"});
+    }
+    Student.findById(studentId, (error, student) => {
+        if (error) return res.json({success: false, error});
+        const {name, aMark, mMark, fMark} = req.body;
+        if (name) student.name = name;
+        if (aMark) student.aMark = aMark;
+        if (mMark) student.mMark = mMark;
+        if (fMark) student.fMark = fMark;
+        student.save(error => {
+            if (error) return res.json({success: false, error});
+            return res.json({success: true});
+        });
+    });
+});
 
 router.delete('/students/:studentId', (req, res) => {
     const {studentId} = req.params;

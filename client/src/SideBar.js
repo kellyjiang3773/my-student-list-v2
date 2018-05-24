@@ -30,6 +30,16 @@ const add_student = () => {
     return (<StudentFormBox />)
 }
 
+class update_student extends Component {
+    render() {
+        // const { match: { params } } = this.props;
+        const updateId = this.props.location.state.updateId;
+        return (
+            <StudentFormBox studentId={updateId} />
+        )
+    }
+}
+
 const SidebarExample = () => (
     <Router>
         <div style={{ display: "flex" }}>
@@ -57,6 +67,7 @@ const SidebarExample = () => (
                 <Route path="/student" exact component={student_list} />
                 <Route path="/student/:studentId" component={student_detail} />
                 <Route path="/add" component={add_student} />
+                <Route path="/update/:studentId" component={update_student} />
             </div>
         </div>
     </Router>

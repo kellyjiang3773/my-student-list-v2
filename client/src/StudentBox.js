@@ -26,17 +26,9 @@ class StudentBox extends Component {
             });
     }
 
-    // onUpdateStudent = (id) => {
-    //     const oldStudent = this.state.data.find(c => c._id === id);
-    //     if (!oldStudent) return;
-    //     this.setState({
-    //         name: oldStudent.name,
-    //         aMark: oldStudent.aMark,
-    //         mMark: oldStudent.mMark,
-    //         fMark: oldStudent.fMark,
-    //         updateId: id
-    //     });
-    // }
+    onUpdateStudent = (id) => {
+        this.setState({ updateId: id});
+    }
 
     onDeleteStudent = (id) => {
         fetch(`/api/students/${id}`, { method: 'DELETE' })
@@ -52,9 +44,20 @@ class StudentBox extends Component {
         }
     }
 
+    renderUpdate = () => {
+        if (this.state.updateId) {
+            return <Redirect to={ {
+                // go to update page, send id
+                pathname: '/update/:studentId',
+                state: {updateId: this.state.updateId} 
+            }} />
+        }
+    }
+
     render() {
         return (
             <div>
+                {this.renderUpdate()}
                 {this.renderRedirect()}
                 <Student
                     id={this.props.studentId}
@@ -63,6 +66,7 @@ class StudentBox extends Component {
                     mMark={this.state.mMark}
                     fMark={this.state.fMark}
                     handleDeleteStudent={this.onDeleteStudent}
+                    handleUpdateStudent={this.onUpdateStudent}
                 />
             </div>
         )

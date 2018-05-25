@@ -27,14 +27,22 @@ class student_detail extends Component {
 }
 
 const add_student = () => {
-    return (<StudentFormBox />)
+    return (
+        <div>
+            <h2>Add Student:</h2>
+            <StudentFormBox />
+        </div>
+    )
 }
 
 class update_student extends Component {
     render() {
         const updateId = this.props.location.state.updateId;
         return (
-            <StudentFormBox studentId={updateId} />
+            <div>
+                <h2>Update Student:</h2>
+                <StudentFormBox studentId={updateId} />
+            </div>
         )
     }
 }

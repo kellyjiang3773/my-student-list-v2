@@ -42,12 +42,6 @@ class StudentListBox extends Component {
             });
     }
 
-    onChangeText = (e) => {
-        const newState = { ...this.state };
-        newState[e.target.name] = e.target.value;
-        this.setState(newState);
-    }
-
     render() {
         return (
             <div className="container">

@@ -14,7 +14,7 @@ class StudentBox extends Component {
         // buttons and handlers
     }
 
-    componentDidMount() {
+    componentWillMount() {
         fetch(`/api/students/${this.props.studentId}`)
             .then(res => res.json()).then(res => {
                 this.setState({

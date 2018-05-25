@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 const Student = (props) => (
     <div>
         <h2>{props.name}:</h2>
-        <p>Assignment mark: {props.aMark}</p>
-        <p>Midterm exam mark: {props.mMark}</p>
-        <p>Final exam mark: {props.fMark}</p>
+        <p>Assignment mark: {(props.aMark.length === 0 ? 'N/A' : props.aMark)}</p>
+        <p>Midterm exam mark: {(props.mMark.length === 0 ? 'N/A' : props.mMark)}</p>
+        <p>Final exam mark: {(props.fMark.length === 0 ? 'N/A' : props.fMark)}</p>
         <hr></hr>
         <div>
             <a onClick={() => { props.handleUpdateStudent(props.id); }}>

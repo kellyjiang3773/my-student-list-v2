@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const StudentList = (props) => {
     const studentNodes = props.data.map(student => (
-        <li>
+        <li key={student._id}>
             <Link to={student.url}>{student.name}</Link>
         </li>
     ));

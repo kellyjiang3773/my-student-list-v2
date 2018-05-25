@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const StudentForm = props => (
     <div>
-        <h2>Add Student:</h2>
+        {/* <h2>Add Student:</h2> */}
         <form onSubmit={props.handleSubmit}>
             <input
                 type="text"
@@ -38,7 +38,6 @@ const StudentForm = props => (
             />
             <br></br>
             <button type="submit">Submit</button>
-            {/* <Link to="/student" onClick={props.handleSubmit}>Submit</Link> */}
         </form>
     </div>
 );

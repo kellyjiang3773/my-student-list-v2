@@ -19,12 +19,14 @@ class StudentFormBox extends Component {
     onChangeText = (e) => {
         const newState = { ...this.state };
         newState[e.target.name] = e.target.value;
+        // console.log(newState[e.target.name]);
         this.setState(newState);
     }
 
     submitStudent = (e) => {
         e.preventDefault();
-        const { name, updateId } = this.state;
+        const { name, /*fMark,*/ updateId } = this.state;
+        // console.log(fMark);
         if (!name) return;
         if (updateId) {
             this.submitUpdatedStudent();
@@ -55,15 +57,39 @@ class StudentFormBox extends Component {
         });
     }
 
+    // noBlanks = (mark) => {
+    //     if (mark==='') {
+    //         mark = 'N/A';
+    //     }
+    // }
+
     submitUpdatedStudent = () => {
+        
+        if (this.state.aMark==='') {
+            this.state.aMark = 'N/A';
+        }
+        if (this.state.mMark==='') {
+            this.state.mMark = 'N/A';
+        }
+        if (this.state.fMark==='') {
+            this.state.fMark = 'N/A';
+        }
+
         const { name, aMark, mMark, fMark, updateId } = this.state;
+        console.log(fMark);
+        
         fetch(`/api/students/${updateId}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                // 'Content-Length': 0 
+            },
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
             else {
+                console.log(fMark);
+                // console.log(JSON.stringify(fMark));
                 const tempId = updateId;
                 this.setState({
                     name: '',
@@ -114,6 +140,7 @@ class StudentFormBox extends Component {
             <div>
                 <div>
                     {this.renderRedirect()}
+                    {console.log(this.state.fMark)}
                     <StudentForm
                         name={this.state.name}
                         aMark={this.state.aMark}

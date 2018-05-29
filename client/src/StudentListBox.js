@@ -31,7 +31,8 @@ class StudentListBox extends Component {
     }
 
     loadStudentsFromServer = () => {
-        fetch('/api/students/')
+        // fetch('/api/students/')
+        fetch('/student_list/students/')
             .then(data => data.json())
             .then((res) => {
                 if (!res.success) {

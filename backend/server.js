@@ -13,9 +13,9 @@ const router = express.Router();
 const API_PORT = process.env.API_PORT || 3001;
 
 // // database config
-mongoose.connect(getSecret('dbUri'));
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// mongoose.connect(getSecret('dbUri'));
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // configure API to use bodyParser and look for JSON data in req body
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
     res.json({ message: 'Hello World' });
 });
 
+// student list
 router.get('/students', (req, res) => {
     Student.find((err, students) => {
         if (err) {
@@ -37,6 +38,7 @@ router.get('/students', (req, res) => {
     });
 });
 
+// add student
 router.post('/students', (req, res) => {
     const student = new Student();
     const { name, aMark, mMark, fMark } = req.body;
@@ -59,7 +61,9 @@ router.post('/students', (req, res) => {
     });
 });
 
-router.get('/students/:studentId', (req, res) => {
+// student detail
+// router.get('/students/:studentId', (req, res) => {
+router.get('/:studentId', (req, res) => {
     // const student = new Student();
     const { studentId } = req.params;
     if (!studentId) {
@@ -71,7 +75,9 @@ router.get('/students/:studentId', (req, res) => {
     });
 });
 
-router.put('/students/:studentId', (req, res) => {
+// update student
+// router.put('/students/:studentId', (req, res) => {
+router.put('/:studentId', (req, res) => {
     const {studentId} = req.params;
     if (!studentId) {
         return res.json({success: false, error: "No student id provided"});
@@ -90,7 +96,9 @@ router.put('/students/:studentId', (req, res) => {
     });
 });
 
-router.delete('/students/:studentId', (req, res) => {
+// delete student
+// router.delete('/students/:studentId', (req, res) => {
+router.delete('/:studentId', (req, res) => {
     const {studentId} = req.params;
     if (!studentId) {
         return res.json({success: true, error: "No student id provided"});
@@ -102,6 +110,7 @@ router.delete('/students/:studentId', (req, res) => {
 });
 
 // use router when we call /api
-app.use('/api', router);
+// app.use('/api', router);
+app.use('/student_list', router);
 
 app.listen(API_PORT, () => console.log('Listening on port ' + API_PORT));

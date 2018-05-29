@@ -19,14 +19,12 @@ class StudentFormBox extends Component {
     onChangeText = (e) => {
         const newState = { ...this.state };
         newState[e.target.name] = e.target.value;
-        // console.log(newState[e.target.name]);
         this.setState(newState);
     }
 
     submitStudent = (e) => {
         e.preventDefault();
         const { name, /*fMark,*/ updateId } = this.state;
-        // console.log(fMark);
         if (!name) return;
         if (updateId) {
             this.submitUpdatedStudent();
@@ -36,8 +34,10 @@ class StudentFormBox extends Component {
     }
 
     submitNewStudent = () => {
+        this.noBlanks();
         const { name, aMark, mMark, fMark } = this.state;
-        fetch('/api/students', {
+        // fetch('/api/students', {
+        fetch('/student_list/students', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, aMark, mMark, fMark }),
@@ -57,39 +57,36 @@ class StudentFormBox extends Component {
         });
     }
 
-    // noBlanks = (mark) => {
-    //     if (mark==='') {
-    //         mark = 'N/A';
-    //     }
-    // }
-
-    submitUpdatedStudent = () => {
-        
-        if (this.state.aMark==='') {
+    noBlanks = () => {
+        if (this.state.aMark === '') {
             this.state.aMark = 'N/A';
         }
-        if (this.state.mMark==='') {
+        if (this.state.mMark === '') {
             this.state.mMark = 'N/A';
         }
-        if (this.state.fMark==='') {
+        if (this.state.fMark === '') {
             this.state.fMark = 'N/A';
         }
+        // this.setState({
+        //     aMark: (this.state.aMark === '' ? 'N/A' : this.state.aMark),
+        //     mMark: (this.state.mMark === '' ? 'N/A' : this.state.mMark),
+        //     fMark: (this.state.fMark === '' ? 'N/A' : this.state.fMark)
+        // });
+    }
 
+    submitUpdatedStudent = () => {
+        this.noBlanks();
         const { name, aMark, mMark, fMark, updateId } = this.state;
-        console.log(fMark);
-        
-        fetch(`/api/students/${updateId}`, {
+        // fetch(`/api/students/${updateId}`, {
+        fetch(`/student_list/${updateId}`, {
             method: 'PUT',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Length': 0 
             },
             body: JSON.stringify({ name, aMark, mMark, fMark }),
         }).then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
             else {
-                console.log(fMark);
-                // console.log(JSON.stringify(fMark));
                 const tempId = updateId;
                 this.setState({
                     name: '',
@@ -106,7 +103,7 @@ class StudentFormBox extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to={'/student/'+this.state.tempId} />
+            return <Redirect to={'/student/' + this.state.tempId} />
         }
     }
 
@@ -118,17 +115,19 @@ class StudentFormBox extends Component {
         return true;
     }
 
+    // load info if this is an update
     componentDidMount() {
         if (!this.isEmpty(this.props)) {
             // GET student's info
-            fetch(`/api/students/${this.props.studentId}`, { method: 'GET' })
+            // fetch(`/api/students/${this.props.studentId}`, { method: 'GET' })
+            fetch(`/student_list/${this.props.studentId}`, { method: 'GET' })
                 .then(res => res.json()).then((res) => {
                     if (!res.success) this.setState({ error: res.error });
                     else this.setState({
                         name: res.student.name,
-                        aMark: res.student.aMark,
-                        mMark: res.student.mMark,
-                        fMark: res.student.fMark,
+                        aMark: (res.student.aMark === 'N/A' ? '' : res.student.aMark),
+                        mMark: (res.student.mMark === 'N/A' ? '' : res.student.mMark),
+                        fMark: (res.student.fMark === 'N/A' ? '' : res.student.fMark),
                         updateId: this.props.studentId
                     });
                 });
@@ -140,7 +139,6 @@ class StudentFormBox extends Component {
             <div>
                 <div>
                     {this.renderRedirect()}
-                    {console.log(this.state.fMark)}
                     <StudentForm
                         name={this.state.name}
                         aMark={this.state.aMark}

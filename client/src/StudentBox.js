@@ -15,7 +15,8 @@ class StudentBox extends Component {
     }
 
     componentWillMount() {
-        fetch(`/api/students/${this.props.studentId}`)
+        // fetch(`/api/students/${this.props.studentId}`)
+        fetch(`/student_list/${this.props.studentId}`)
             .then(res => res.json()).then(res => {
                 this.setState({
                     name: res.student.name,
@@ -31,7 +32,8 @@ class StudentBox extends Component {
     }
 
     onDeleteStudent = (id) => {
-        fetch(`/api/students/${id}`, { method: 'DELETE' })
+        // fetch(`/api/students/${id}`, { method: 'DELETE' })
+        fetch(`/student_list/${id}`, { method: 'DELETE' })
             .then(res => res.json()).then((res) => {
                 if (!res.success) this.setState({ error: res.error });
                 else this.setState({ redirect: true });

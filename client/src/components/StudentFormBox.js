@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import StudentForm from './StudentForm';
+import { POSTstudent, PUTstudent } from '../api/user';
 
 class StudentFormBox extends Component {
     constructor() {
@@ -37,24 +38,26 @@ class StudentFormBox extends Component {
         this.noBlanks();
         const { name, aMark, mMark, fMark } = this.state;
         // fetch('/api/students', {
-        fetch('/student_list/students', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, aMark, mMark, fMark }),
-        }).then(res => res.json()).then((res) => {
-            if (!res.success) this.setState({ error: res.error.message || res.error });
-            else {
-                this.setState({
-                    name: '',
-                    aMark: '',
-                    mMark: '',
-                    fMark: '',
-                    error: null,
-                    redirect: true,
-                    tempId: res.tempId
-                });
-            }
-        });
+        // fetch('/student_list/students', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ name, aMark, mMark, fMark }),
+        // })
+        POSTstudent({ name, aMark, mMark, fMark })
+            .then(res => res.json()).then((res) => {
+                if (!res.success) this.setState({ error: res.error.message || res.error });
+                else {
+                    this.setState({
+                        name: '',
+                        aMark: '',
+                        mMark: '',
+                        fMark: '',
+                        error: null,
+                        redirect: true,
+                        tempId: res.tempId
+                    });
+                }
+            });
     }
 
     noBlanks = () => {
@@ -78,13 +81,13 @@ class StudentFormBox extends Component {
         this.noBlanks();
         const { name, aMark, mMark, fMark, updateId } = this.state;
         // fetch(`/api/students/${updateId}`, {
-        fetch(`/student_list/${updateId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, aMark, mMark, fMark }),
-        }).then(res => res.json()).then((res) => {
+        // fetch(`/student_list/${updateId}`, {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ name, aMark, mMark, fMark }),
+        // })
+        PUTstudent(updateId, { name, aMark, mMark, fMark })
+        .then(res => res.json()).then((res) => {
             if (!res.success) this.setState({ error: res.error.message || res.error });
             else {
                 const tempId = updateId;

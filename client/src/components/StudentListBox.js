@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 import StudentList from './StudentList';
+import {GETlist} from '../api/user'
 
 class StudentListBox extends Component {
     constructor() {
@@ -32,7 +33,8 @@ class StudentListBox extends Component {
 
     loadStudentsFromServer = () => {
         // fetch('/api/students/')
-        fetch('/student_list/students/')
+        // fetch('/student_list/students/')
+        GETlist()
             .then(data => data.json())
             .then((res) => {
                 if (!res.success) {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Student from './Student';
+import { GETstudent, DELETEstudent } from '../api/user';
+import 'whatwg-fetch';
 
 class StudentBox extends Component {
     constructor() {
@@ -16,8 +18,10 @@ class StudentBox extends Component {
 
     componentWillMount() {
         // fetch(`/api/students/${this.props.studentId}`)
-        fetch(`/student_list/${this.props.studentId}`)
-            .then(res => res.json()).then(res => {
+        // fetch(`/student_list/${this.props.studentId}`)
+        GETstudent(this.props.studentId)
+            .then(res => res.json())
+            .then(res => {
                 this.setState({
                     name: res.student.name,
                     aMark: res.student.aMark,
@@ -28,12 +32,13 @@ class StudentBox extends Component {
     }
 
     onUpdateStudent = (id) => {
-        this.setState({ updateId: id});
+        this.setState({ updateId: id });
     }
 
     onDeleteStudent = (id) => {
         // fetch(`/api/students/${id}`, { method: 'DELETE' })
-        fetch(`/student_list/${id}`, { method: 'DELETE' })
+        // fetch(`/student_list/${id}`, { method: 'DELETE' })
+        DELETEstudent(id)
             .then(res => res.json()).then((res) => {
                 if (!res.success) this.setState({ error: res.error });
                 else this.setState({ redirect: true });
@@ -48,10 +53,10 @@ class StudentBox extends Component {
 
     renderUpdate = () => {
         if (this.state.updateId) {
-            return <Redirect to={ {
+            return <Redirect to={{
                 // go to update page, send id
                 pathname: '/update/:studentId',
-                state: {updateId: this.state.updateId} 
+                state: { updateId: this.state.updateId }
             }} />
         }
     }

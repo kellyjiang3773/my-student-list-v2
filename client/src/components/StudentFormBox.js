@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import StudentForm from './StudentForm';
-import { POSTstudent, PUTstudent } from '../api/user';
+import { GETstudent, POSTstudent, PUTstudent } from '../api/user';
 
 class StudentFormBox extends Component {
     constructor() {
@@ -87,21 +87,21 @@ class StudentFormBox extends Component {
         //     body: JSON.stringify({ name, aMark, mMark, fMark }),
         // })
         PUTstudent(updateId, { name, aMark, mMark, fMark })
-        .then(res => res.json()).then((res) => {
-            if (!res.success) this.setState({ error: res.error.message || res.error });
-            else {
-                const tempId = updateId;
-                this.setState({
-                    name: '',
-                    aMark: '',
-                    mMark: '',
-                    fMark: '',
-                    updateId: null,
-                    redirect: true,
-                    tempId: tempId
-                });
-            }
-        });
+            .then(res => res.json()).then((res) => {
+                if (!res.success) this.setState({ error: res.error.message || res.error });
+                else {
+                    const tempId = updateId;
+                    this.setState({
+                        name: '',
+                        aMark: '',
+                        mMark: '',
+                        fMark: '',
+                        updateId: null,
+                        redirect: true,
+                        tempId: tempId
+                    });
+                }
+            });
     }
 
     renderRedirect = () => {
@@ -123,7 +123,8 @@ class StudentFormBox extends Component {
         if (!this.isEmpty(this.props)) {
             // GET student's info
             // fetch(`/api/students/${this.props.studentId}`, { method: 'GET' })
-            fetch(`/student_list/${this.props.studentId}`, { method: 'GET' })
+            // fetch(`/student_list/${this.props.studentId}`)
+            GETstudent(this.props.studentId)
                 .then(res => res.json()).then((res) => {
                     if (!res.success) this.setState({ error: res.error });
                     else this.setState({

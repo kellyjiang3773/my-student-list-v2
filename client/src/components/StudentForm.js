@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const loadTitle = (props) => {
+    if (props.name === '') {
+        return <h2>Add Student:</h2>
+    } else {
+        return <h2>Update Student:</h2>
+    }
+};
+
 const StudentForm = props => (
     <div>
-        {/* <h2>Add Student:</h2> */}
-        <form onSubmit={props.handleSubmit}>
+        {loadTitle(props)}
+        <form onSubmit={props.handleSubmit} name="form">
             <input
                 type="text"
+                id="name"
                 name="name"
                 placeholder="Student name"
                 value={props.name}
@@ -15,6 +24,7 @@ const StudentForm = props => (
             <br></br>
             <input
                 type="text"
+                id="aMark"
                 name="aMark"
                 placeholder="Assignment mark"
                 value={props.aMark}
@@ -23,6 +33,7 @@ const StudentForm = props => (
             <br></br>
             <input
                 type="text"
+                id="mMark"
                 name="mMark"
                 placeholder="Midterm exam mark"
                 value={props.mMark}
@@ -31,13 +42,14 @@ const StudentForm = props => (
             <br></br>
             <input
                 type="text"
+                id="fMark"
                 name="fMark"
                 placeholder="Final exam mark"
                 value={props.fMark}
                 onChange={props.handleChangeText}
             />
             <br></br>
-            <button type="submit">Submit</button>
+            <button type="submit" name="button">Submit</button>
         </form>
     </div>
 );

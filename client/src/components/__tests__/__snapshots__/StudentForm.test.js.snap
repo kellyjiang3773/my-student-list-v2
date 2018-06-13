@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOM test for <StudentForm> renders correctly 1`] = `
+<div>
+  <h2>
+    Update Student:
+  </h2>
+  <form
+    name="form"
+    onSubmit={[Function]}
+  >
+    <input
+      id="name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Student name"
+      type="text"
+      value="Jane Doe"
+    />
+    <br />
+    <input
+      id="aMark"
+      name="aMark"
+      onChange={[Function]}
+      placeholder="Assignment mark"
+      type="text"
+      value="88"
+    />
+    <br />
+    <input
+      id="mMark"
+      name="mMark"
+      onChange={[Function]}
+      placeholder="Midterm exam mark"
+      type="text"
+      value="99"
+    />
+    <br />
+    <input
+      id="fMark"
+      name="fMark"
+      onChange={[Function]}
+      placeholder="Final exam mark"
+      type="text"
+      value=""
+    />
+    <br />
+    <button
+      name="button"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

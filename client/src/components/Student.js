@@ -9,10 +9,10 @@ const Student = (props) => (
         <p>Final exam mark: {(props.fMark.length === 0 ? 'N/A' : props.fMark)}</p>
         <hr></hr>
         <div>
-            <a onClick={() => { props.handleUpdateStudent(props.id); }}>
-                Update </a>
-            <a onClick={() => { props.handleDeleteStudent(props.id); }}>
-                Delete</a>
+            <button onClick={() => { props.handleUpdateStudent(props.id); }}>
+                Update</button>
+            <button onClick={() => { props.handleDeleteStudent(props.id); }}>
+                Delete</button>
         </div>
     </div>
 );

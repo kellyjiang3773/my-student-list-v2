@@ -25,7 +25,7 @@ class StudentFormBox extends Component {
 
     submitStudent = (e) => {
         e.preventDefault();
-        const { name, /*fMark,*/ updateId } = this.state;
+        const { name, updateId } = this.state;
         if (!name) return;
         if (updateId) {
             this.submitUpdatedStudent();
@@ -34,8 +34,28 @@ class StudentFormBox extends Component {
         }
     }
 
-    submitNewStudent = () => {
-        this.noBlanks();
+    static replaceBlanks = (aMark, mMark, fMark) => {
+        var stateArray = [aMark, mMark, fMark];
+        for (var i = 0; i < stateArray.length; i++) {
+            if (stateArray[i] === '') {
+                stateArray[i] = 'N/A';
+            }
+        }
+        return {
+            aMark: stateArray[0],
+            mMark: stateArray[1],
+            fMark: stateArray[2]
+        };
+    };
+
+    noBlanks = () => {
+        const { aMark, mMark, fMark } = this.state;
+        const newState = StudentFormBox.replaceBlanks(aMark, mMark, fMark);
+        this.setState(newState);
+    }
+
+    submitNewStudent = async () => {
+        await this.noBlanks();
         const { name, aMark, mMark, fMark } = this.state;
         // fetch('/api/students', {
         // fetch('/student_list/students', {
@@ -60,25 +80,8 @@ class StudentFormBox extends Component {
             });
     }
 
-    noBlanks = () => {
-        if (this.state.aMark === '') {
-            this.state.aMark = 'N/A';
-        }
-        if (this.state.mMark === '') {
-            this.state.mMark = 'N/A';
-        }
-        if (this.state.fMark === '') {
-            this.state.fMark = 'N/A';
-        }
-        // this.setState({
-        //     aMark: (this.state.aMark === '' ? 'N/A' : this.state.aMark),
-        //     mMark: (this.state.mMark === '' ? 'N/A' : this.state.mMark),
-        //     fMark: (this.state.fMark === '' ? 'N/A' : this.state.fMark)
-        // });
-    }
-
-    submitUpdatedStudent = () => {
-        this.noBlanks();
+    submitUpdatedStudent = async () => {
+        await this.noBlanks();
         const { name, aMark, mMark, fMark, updateId } = this.state;
         // fetch(`/api/students/${updateId}`, {
         // fetch(`/student_list/${updateId}`, {
@@ -110,7 +113,7 @@ class StudentFormBox extends Component {
         }
     }
 
-    isEmpty = (obj) => {
+    static isEmpty = (obj) => {
         for (var key in obj) {
             if (obj.hasOwnProperty(key))
                 return false;
@@ -120,7 +123,7 @@ class StudentFormBox extends Component {
 
     // load info if this is an update
     componentDidMount() {
-        if (!this.isEmpty(this.props)) {
+        if (!StudentFormBox.isEmpty(this.props)) {
             // GET student's info
             // fetch(`/api/students/${this.props.studentId}`, { method: 'GET' })
             // fetch(`/student_list/${this.props.studentId}`)
@@ -150,6 +153,7 @@ class StudentFormBox extends Component {
                         fMark={this.state.fMark}
                         handleChangeText={this.onChangeText}
                         handleSubmit={this.submitStudent}
+                        update={this.state.updateId}
                     />
                 </div>
                 {this.state.error && <p>{this.state.error}</p>}

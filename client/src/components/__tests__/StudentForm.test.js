@@ -16,14 +16,16 @@ describe('DOM test for <StudentForm>', () => {
         name: 'Jane Doe',
         aMark: '88',
         mMark: '99',
-        fMark: ''
+        fMark: '',
+        updateId: true
     };
 
     const mockValues2 = {
         name: '',
         aMark: '',
         mMark: '',
-        fMark: ''
+        fMark: '',
+        updateId: null
     };
     
     let rendered;
@@ -35,6 +37,7 @@ describe('DOM test for <StudentForm>', () => {
                 aMark={values.aMark}
                 mMark={values.mMark}
                 fMark={values.fMark}
+                update={values.updateId}
                 handleChangeText={handleChangeText}
                 handleSubmit={handleSubmit}
             />

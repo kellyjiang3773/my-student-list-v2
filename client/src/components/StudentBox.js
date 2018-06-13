@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Student from './Student';
 import { GETstudent, DELETEstudent } from '../api/user';
-import 'whatwg-fetch';
+// import {getStudentDetails, deleteStudent} from './stateFunctions';
+// import 'whatwg-fetch';
 
 class StudentBox extends Component {
     constructor() {
@@ -17,8 +18,8 @@ class StudentBox extends Component {
     }
 
     componentWillMount() {
-        // fetch(`/api/students/${this.props.studentId}`)
-        // fetch(`/student_list/${this.props.studentId}`)
+        // // fetch(`/api/students/${this.props.studentId}`)
+        // // fetch(`/student_list/${this.props.studentId}`)
         GETstudent(this.props.studentId)
             .then(res => res.json())
             .then(res => {
@@ -29,6 +30,10 @@ class StudentBox extends Component {
                     fMark: res.student.fMark
                 });
             });
+        // getStudentDetails(this.props.studentId, (res) => {
+        //     this.setState(res);
+        // });
+       
     }
 
     onUpdateStudent = (id) => {
@@ -43,6 +48,9 @@ class StudentBox extends Component {
                 if (!res.success) this.setState({ error: res.error });
                 else this.setState({ redirect: true });
             });
+        // deleteStudent(this.props.studentId, (res) => {
+        //     this.setState(res);
+        // });
     }
 
     renderRedirect = () => {
@@ -55,7 +63,7 @@ class StudentBox extends Component {
         if (this.state.updateId) {
             return <Redirect to={{
                 // go to update page, send id
-                pathname: '/update/:studentId',
+                pathname: `/update/${this.state.updateId}`,
                 state: { updateId: this.state.updateId }
             }} />
         }

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const loadTitle = (props) => {
-    if (props.name === '') {
-        return <h2>Add Student:</h2>
-    } else {
+    if (props.update) {
         return <h2>Update Student:</h2>
+    } else {
+        return <h2>Add Student:</h2>
     }
 };
 

@@ -14,7 +14,6 @@ class StudentBox extends Component {
             mMark: '',
             fMark: ''
         }
-        // buttons and handlers
     }
 
     componentWillMount() {
@@ -23,19 +22,18 @@ class StudentBox extends Component {
         GETstudent(this.props.studentId)
             .then(res => res.json())
             .then(res => {
-                this.setState({
-                    name: res.student.name,
-                    aMark: res.student.aMark,
-                    mMark: res.student.mMark,
-                    fMark: res.student.fMark
-                });
+                if (!res.success) {
+                    this.setState({ error: res.error });
+                } else {
+                    this.setState({
+                        name: res.data.name,
+                        aMark: res.data.aMark,
+                        mMark: res.data.mMark,
+                        fMark: res.data.fMark
+                    });
+                }
             });
-        // getStudentDetails(this.props.studentId, (res) => {
-        //     this.setState(res);
-        // });
-       
     }
-
     onUpdateStudent = (id) => {
         this.setState({ updateId: id });
     }
@@ -48,9 +46,6 @@ class StudentBox extends Component {
                 if (!res.success) this.setState({ error: res.error });
                 else this.setState({ redirect: true });
             });
-        // deleteStudent(this.props.studentId, (res) => {
-        //     this.setState(res);
-        // });
     }
 
     renderRedirect = () => {
@@ -69,11 +64,11 @@ class StudentBox extends Component {
         }
     }
 
-    render() {
-        return (
-            <div>
-                {this.renderUpdate()}
-                {this.renderRedirect()}
+    renderPage = () => {
+        if (this.state.error) {
+            return (<p>{this.state.error}</p>);
+        } else {
+            return (
                 <Student
                     id={this.props.studentId}
                     name={this.state.name}
@@ -83,6 +78,16 @@ class StudentBox extends Component {
                     handleDeleteStudent={this.onDeleteStudent}
                     handleUpdateStudent={this.onUpdateStudent}
                 />
+            );
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                {this.renderUpdate()}
+                {this.renderRedirect()}
+                {this.renderPage()}
             </div>
         )
     }

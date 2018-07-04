@@ -20,6 +20,7 @@ class StudentListBox extends Component {
     componentDidMount() {
         this.loadStudentsFromServer();
         if (!this.pollInterval) {
+            // fetch data from API every 2s
             this.pollInterval = setInterval(this.loadStudentsFromServer, 2000);
         }
     }

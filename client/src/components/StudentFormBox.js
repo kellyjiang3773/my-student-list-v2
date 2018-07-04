@@ -74,7 +74,7 @@ class StudentFormBox extends Component {
                         fMark: '',
                         error: null,
                         redirect: true,
-                        tempId: res.tempId
+                        tempId: res.data
                     });
                 }
             });
@@ -131,10 +131,10 @@ class StudentFormBox extends Component {
                 .then(res => res.json()).then((res) => {
                     if (!res.success) this.setState({ error: res.error });
                     else this.setState({
-                        name: res.student.name,
-                        aMark: (res.student.aMark === 'N/A' ? '' : res.student.aMark),
-                        mMark: (res.student.mMark === 'N/A' ? '' : res.student.mMark),
-                        fMark: (res.student.fMark === 'N/A' ? '' : res.student.fMark),
+                        name: res.data.name,
+                        aMark: (res.data.aMark === 'N/A' ? '' : res.data.aMark),
+                        mMark: (res.data.mMark === 'N/A' ? '' : res.data.mMark),
+                        fMark: (res.data.fMark === 'N/A' ? '' : res.data.fMark),
                         updateId: this.props.studentId
                     });
                 });

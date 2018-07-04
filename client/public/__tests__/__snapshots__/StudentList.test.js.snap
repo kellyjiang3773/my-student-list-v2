@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOM test for <StudentList> renders a list of students 1`] = `
+<ul>
+  <li
+    key="1"
+  >
+    <Link
+      replace={false}
+      to="1"
+    >
+      Isaac Newton
+    </Link>
+  </li>
+  <li
+    key="2"
+  >
+    <Link
+      replace={false}
+      to="2"
+    >
+      Albert Einstein
+    </Link>
+  </li>
+  <li
+    key="3"
+  >
+    <Link
+      replace={false}
+      to="3"
+    >
+      Tycho Brahe
+    </Link>
+  </li>
+</ul>
+`;

@@ -1,4 +1,4 @@
-import Student from '../Student';
+import Student from '../src/components/Student';
 import React from 'react';
 // import renderer from 'react-test-renderer';
 import {shallow, configure} from 'enzyme';

@@ -1,4 +1,4 @@
-import StudentFormBox from '../StudentFormBox';
+import StudentFormBox from '../src/components/StudentFormBox';
 
 describe('tests for <StudentFormBox>', () => {
     // console.log(StudentFormBox.isEmpty({num: null}));

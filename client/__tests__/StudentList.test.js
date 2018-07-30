@@ -1,4 +1,4 @@
-import StudentList from '../StudentList';
+import StudentList from '../src/components/StudentList';
 import React from 'react';
 // import renderer from 'react-test-renderer';
 import {shallow, configure} from 'enzyme';

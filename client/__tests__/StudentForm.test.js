@@ -1,4 +1,4 @@
-import StudentForm from '../StudentForm';
+import StudentForm from '../src/components/StudentForm';
 import React from 'react';
 // import renderer from 'react-test-renderer';
 import {shallow, configure} from 'enzyme';

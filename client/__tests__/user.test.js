@@ -1,7 +1,7 @@
-jest.mock('./request');
+jest.mock('../src/api/request');
 
-import { GETlist, GETstudent, DELETEstudent, POSTstudent, PUTstudent } from './user';
-import {temp_students} from './__mocks__/request';
+import { GETlist, GETstudent, DELETEstudent, POSTstudent, PUTstudent } from '../src/api/user';
+import { temp_students } from '../src/api/__mocks__/request';
 
 describe('API testing', () => {
 
@@ -72,7 +72,7 @@ describe('API testing', () => {
                     expect(res).toBeDefined();
                     expect(res.success).toBe(false);
                     expect(res.error)
-                        .toBe('Error adding student '+JSON.stringify(fakeBody2));
+                        .toBe('Error adding student ' + JSON.stringify(fakeBody2));
                 })
         });
     });
@@ -105,7 +105,7 @@ describe('API testing', () => {
                     expect(res).toBeDefined();
                     expect(res.success).toBe(false);
                     expect(res.error)
-                        .toBe('Error updating student '+JSON.stringify(fakeBody2));
+                        .toBe('Error updating student ' + JSON.stringify(fakeBody2));
                 })
         });
     });
@@ -125,7 +125,7 @@ describe('API testing', () => {
             return DELETEstudent(fakeID)
                 .catch(res => {
                     expect(res).toBeDefined();
-                    expect(res.error).toBe('Error deleting student with ID ['+fakeID+']');
+                    expect(res.error).toBe('Error deleting student with ID [' + fakeID + ']');
                 })
         });
     });

@@ -4,11 +4,13 @@ export default function request(id, method, body) {
     // console.log('inside request');
 
     if (method.get) {
-        if (id) {       // need to GET student
+        if (id) {
+            // need to GET student
             return fetch(`/student_list/${id}`);
-        } else {        // need to GET list
-            return fetch(`/student_list/students`);
         }
+        // need to GET list
+        return fetch(`/student_list/students`);
+
     }
     else if (method.post) {
         // console.log('post request');
@@ -32,5 +34,6 @@ export default function request(id, method, body) {
     }
     else {
         console.log('invalid request');
+        return;
     }
 }
